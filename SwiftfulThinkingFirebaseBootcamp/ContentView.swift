@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+struct DownloadModel: Codable {
+    let id: String
+    let number: Int
+}
+
+class ContentViewModel: ObservableObject {
+    @Published var data: DownloadModel?
+}
+
 struct ContentView: View {
     var body: some View {
         VStack {
@@ -14,6 +23,20 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
+            
+            ScrollView(.vertical) {
+                VStack {
+                    ForEach( 1...50, id: \.self) { item in
+                        HStack {
+                            Text("Number: \(item)")
+                                .foregroundColor(.black)
+                            
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+            
         }
         .padding()
     }

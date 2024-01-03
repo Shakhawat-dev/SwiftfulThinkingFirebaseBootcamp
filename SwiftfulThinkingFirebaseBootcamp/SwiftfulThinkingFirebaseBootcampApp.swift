@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct SwiftfulThinkingFirebaseBootcampApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+        print("Configured Firebase!")
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            // ContentView()
+            RootView()
         }
     }
 }
