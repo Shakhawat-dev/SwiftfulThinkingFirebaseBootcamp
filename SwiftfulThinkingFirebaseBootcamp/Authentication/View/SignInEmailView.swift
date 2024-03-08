@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SignInEmailView: View {
-    @StateObject var vm = SignInEmailViewModel()
+    @StateObject private var vm = SignInEmailViewModel()
+    @Binding var showSignInView: Bool
     
     var body: some View {
         VStack(spacing: 20) {
@@ -20,7 +21,24 @@ struct SignInEmailView: View {
             
             Button {
                 // action
-                vm.signIn()
+                Task {
+                    do {
+                        try await vm.signIn()
+                        showSignInView = false
+                        return
+                    } catch {
+                        print(error)
+                    }
+                    
+                    do {
+                        try await vm.signUp()
+                        showSignInView = false
+                        return
+                    } catch {
+                        print(error)
+                    }
+                }
+                
             } label: {
                 Text("Sign In")
             }
@@ -33,7 +51,7 @@ struct SignInEmailView: View {
 struct SignInEmailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SignInEmailView()
+            SignInEmailView(showSignInView: .constant(false))
         }
     }
 }

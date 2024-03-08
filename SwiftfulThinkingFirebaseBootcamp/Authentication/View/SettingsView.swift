@@ -18,6 +18,17 @@ struct SettingsView: View {
                         try vm.logout()
                         showSignInView = true
                     } catch {
+                        print(error)
+                    }
+                }
+            }
+            
+            Button("Password Reset") {
+                Task {
+                    do {
+                        try await vm.resetPassword()
+                        print("PASSWORD RESET!!!")
+                    } catch {
                         
                     }
                 }

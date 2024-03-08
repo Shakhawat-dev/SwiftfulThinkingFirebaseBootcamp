@@ -7,26 +7,27 @@
 
 import Foundation
 
+@MainActor
 final class SignInEmailViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     
-    func signIn() {
+    func signUp() async throws {
         guard !email.isEmpty, !password.isEmpty else {
             print("Email or pass empty")
             return
         }
         
-        Task {
-            do {
-                let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-                print("Success")
-                print(returnedUserData)
-            } catch {
-                print("Error: \(error)")
-            }
-                        
+//        let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
+        try await AuthenticationManager.shared.createUser(email: email, password: password)
+    }
+    
+    func signIn() async throws {
+        guard !email.isEmpty, !password.isEmpty else {
+            print("Email or pass empty")
+            return
         }
         
+        try await AuthenticationManager.shared.signInUser(email: email, password: password)
     }
 }
