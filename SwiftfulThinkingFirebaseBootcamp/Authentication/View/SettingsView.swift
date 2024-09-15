@@ -23,16 +23,7 @@ struct SettingsView: View {
                 }
             }
             
-            Button("Password Reset") {
-                Task {
-                    do {
-                        try await vm.resetPassword()
-                        print("PASSWORD RESET!!!")
-                    } catch {
-                        
-                    }
-                }
-            }
+            emailpassSection
         }
         .navigationBarTitle("Settings")
     }
@@ -44,5 +35,46 @@ struct SettingsView_Previews: PreviewProvider {
             SettingsView(showSignInView: .constant(false))
         }
         
+    }
+}
+
+extension SettingsView {
+    var emailpassSection: some View {
+        Section {
+            Button("Password Reset") {
+                Task {
+                    do {
+                        try await vm.resetPassword()
+                        print("PASSWORD RESET!!!")
+                    } catch {
+                        
+                    }
+                }
+            }
+            
+            Button("Update Password") {
+                Task {
+                    do {
+                        try await vm.updatePassword()
+                        print("PASSWORD UPDATE!!!")
+                    } catch {
+                        
+                    }
+                }
+            }
+            
+            Button("Update Email") {
+                Task {
+                    do {
+                        try await vm.updateEmail()
+                        print("EMAIL UPDATE!!!")
+                    } catch {
+                        
+                    }
+                }
+            }
+        } header: {
+            Text("Email Section")
+        }
     }
 }

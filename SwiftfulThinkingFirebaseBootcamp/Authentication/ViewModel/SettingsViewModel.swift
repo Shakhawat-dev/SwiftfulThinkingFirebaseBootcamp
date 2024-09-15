@@ -23,4 +23,14 @@ final class SettingsViewModel: ObservableObject {
         
         try await AuthenticationManager.shared.passwordReset(email: email)
     }
+    
+    func updateEmail() async throws {
+        try await AuthenticationManager.shared.updateEmail(email: "shakhawat.ch@gmail.com")
+    }
+    
+    func updatePassword() async throws {
+        try await AuthenticationManager.shared.updatePassword(password: "123456")
+    }
 }
+
+
